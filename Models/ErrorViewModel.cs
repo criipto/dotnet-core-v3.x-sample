@@ -1,6 +1,6 @@
 using System;
 
-namespace aspnetcore_oidc_sample.Models
+namespace aspnetcore_oidc.Models
 {
     public class ErrorViewModel
     {

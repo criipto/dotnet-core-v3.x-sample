@@ -4,9 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using aspnetcore_oidc_sample.Models;
+using aspnetcore_oidc.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace aspnetcore_oidc_sample.Controllers
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+
+namespace aspnetcore_oidc.Controllers
 {
     public class HomeController : Controller
     {
@@ -15,20 +20,18 @@ namespace aspnetcore_oidc_sample.Controllers
             return View();
         }
 
-        public IActionResult About()
+        [Authorize] // If not already authenticated this kicks off the process
+        public IActionResult Protected()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
-        public IActionResult Contact()
+        public async Task Logout()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
-
+            
         public IActionResult Privacy()
         {
             return View();

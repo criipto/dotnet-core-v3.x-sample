@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace aspnetcore_oidc_sample
+namespace aspnetcore_oidc
 {
     public class Program
     {
