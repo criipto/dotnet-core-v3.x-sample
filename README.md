@@ -1,6 +1,6 @@
-# Use Criipto Verify from ASP.Net Core 2.2
+# Use Criipto Verify from ASP.Net Core 3.1
 
-This is the slimmest of samples, just showing how to configure and enable OpenID Connect middelware in an ASP.NET Core 2.x web application to authentication using Criipto Verify brokered e-ID login.
+This is the slimmest of samples, just showing how to configure and enable OpenID Connect middelware in an ASP.NET Core 3.x web application to authentication using Criipto Verify brokered e-ID login.
 
 Note that while this sample simply runs the e-ID login in full screen, you would often do it inside an iframe. An iframed approach requires a few extra tricks on top of what's shown in this sample. This is described elsewhere.
 
