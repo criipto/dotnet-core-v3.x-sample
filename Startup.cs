@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 
 namespace aspnetcore_oidc
 {
@@ -44,6 +45,10 @@ namespace aspnetcore_oidc
                 options.ClientSecret = Configuration["Criipto:ClientSecret"];
                 options.Authority = $"https://{Configuration["Criipto:Domain"]}/";
                 options.ResponseType = "code";
+                options.GetClaimsFromUserInfoEndpoint = true;
+                options.TokenValidationParameters.ValidIssuers = new [] {
+                    options.Authority
+                };
 
                 // The next to settings must match the Callback URLs in Criipto Verify
                 options.CallbackPath = new PathString("/callback");
@@ -67,6 +72,7 @@ namespace aspnetcore_oidc
         {
             if (env.IsDevelopment())
             {
+                IdentityModelEventSource.ShowPII = true;
                 app.UseDeveloperExceptionPage();
             }
             else
