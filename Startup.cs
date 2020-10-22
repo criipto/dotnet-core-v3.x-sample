@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -49,6 +50,13 @@ namespace aspnetcore_oidc
                 options.TokenValidationParameters.ValidIssuers = new [] {
                     options.Authority
                 };
+                options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(5);
+                if(options.SecurityTokenValidator is JwtSecurityTokenHandler jwtHandler)
+                {
+                    jwtHandler.MapInboundClaims = false;
+                    jwtHandler.InboundClaimTypeMap.Clear();
+                    jwtHandler.OutboundClaimTypeMap.Clear();
+                }
 
                 // The next to settings must match the Callback URLs in Criipto Verify
                 options.CallbackPath = new PathString("/callback");
