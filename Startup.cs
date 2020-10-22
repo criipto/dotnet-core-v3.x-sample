@@ -58,7 +58,13 @@ namespace aspnetcore_oidc
                     jwtHandler.OutboundClaimTypeMap.Clear();
                 }
 
-                // The next to settings must match the Callback URLs in Criipto Verify
+                // The next 2 paths must be registered as Callback URLs in Criipto Verify.
+                // You must register the absolute URI for each, so if your website runs on
+                //   my.domain.com
+                // you must register both
+                //   https://my.domain.com/callback
+                // and
+                //   https://my.domain.com/signout
                 options.CallbackPath = new PathString("/callback");
                 options.SignedOutCallbackPath = new PathString("/signout");
 
