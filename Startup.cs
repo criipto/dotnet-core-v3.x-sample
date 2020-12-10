@@ -73,6 +73,26 @@ namespace aspnetcore_oidc
                 options.Events = new OpenIdConnectEvents() {
                     OnRedirectToIdentityProvider = context => {
                         context.ProtocolMessage.AcrValues = context.Request.Query["loginmethod"];
+                        if (context.ProtocolMessage.AcrValues == "urn:grn:authn:de:sofort")
+                        {
+                            var prefilled = new {
+                                given_name = "Hans-Gerd",
+                                family_name = "Warnecke",
+                                birthdate = "1953-01-16",
+                                street_address = "ALTENBURGER STR. 10",
+                                city = "WOLFSBURG",
+                                postal_code = "38444",
+                                address_country_id = "DE",
+                                account_country_id = "DE"
+                            };
+                            var encodedPrefilled =
+                                System.Convert.ToBase64String(
+                                    System.Text.Encoding.UTF8.GetBytes(
+                                        Newtonsoft.Json.JsonConvert.SerializeObject(prefilled)
+                                    )
+                                );
+                            context.ProtocolMessage.LoginHint = $"sofort:{encodedPrefilled}";
+                        }
                         return Task.FromResult(0);
                     }
                 };
