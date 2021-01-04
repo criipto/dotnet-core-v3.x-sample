@@ -50,6 +50,7 @@ namespace aspnetcore_oidc
                 options.TokenValidationParameters.ValidIssuers = new [] {
                     options.Authority
                 };
+                options.UsePkce = false;
                 options.TokenValidationParameters.ClockSkew = TimeSpan.FromMinutes(5);
                 if(options.SecurityTokenValidator is JwtSecurityTokenHandler jwtHandler)
                 {
